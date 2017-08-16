@@ -14,23 +14,25 @@ FString UEncoderConverterLib::UTF8String2String(const FString fuckingUTF8String)
 
 void UEncoderConverterLib::FuckUTF8Converter(TCHAR* dest, const TCHAR* source, int len)
 {
-	const TCHAR keyKey = 0x0080, keyA = 0x0F, keyB = 0x3F;
+	const TCHAR keyKey = 0x0080, keyB = 0x3F;
 	
 
 	int i = 0, j = 0;
 
 	TCHAR combKey = 0;
 	int keyNum = 0;
+	uint32 helpVar = 0;
+
 	while (i < len)
 	{
-		uint32 keyChar = (uint32)source[i];		
+		helpVar = (uint32)source[i];
 		combKey = 0;
 		keyNum = 0;
 
-		while ((keyChar&keyKey) > 0)
+		while ((helpVar & keyKey) > 0)
 		{
 			combKey = keyKey | (combKey>>1);
-			keyChar = keyChar << 1;
+			helpVar = helpVar << 1;
 			++keyNum;
 		}
 
